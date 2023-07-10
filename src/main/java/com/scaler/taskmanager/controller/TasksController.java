@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.scaler.taskmanager.dto.CreateTaskDTO;
 import com.scaler.taskmanager.dto.ErrorResponseDTO;
+import com.scaler.taskmanager.dto.UpdateTaskDTO;
 import com.scaler.taskmanager.entities.TaskEntity;
 import com.scaler.taskmanager.service.TaskService;
 
@@ -43,6 +45,13 @@ public class TasksController {
 		taskService.addTask(body.getTitle(), body.getDescription(), body.getDeadline());
 		return  ResponseEntity.ok().build();
 	}
+	@PatchMapping("/{id}")
+	public ResponseEntity<TaskEntity> updateTask(@PathVariable("id") Integer id, @RequestBody UpdateTaskDTO body) throws ParseException{
+		var task = taskService.updateTask(id, body.getDescription(), body.getDeadline(), body.getCompleted());
+		if(task==null) return ResponseEntity.notFound().build();
+		return  ResponseEntity.ok(task);
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorResponseDTO> handleParseErrors(Exception e){
 		if(e instanceof ParseException) {
