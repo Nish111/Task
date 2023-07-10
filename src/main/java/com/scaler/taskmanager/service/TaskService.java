@@ -1,5 +1,7 @@
 package com.scaler.taskmanager.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,13 +13,15 @@ import com.scaler.taskmanager.entities.TaskEntity;
 public class TaskService {
 	private ArrayList<TaskEntity> tasks = new ArrayList<>();
 	private int taskId = 1;
+	private final SimpleDateFormat deadLineFormatter = 
+			new SimpleDateFormat("yyyy-MM-dd");
 	
-	public TaskEntity addTask(String title, String description, String deadLine) {
+	public TaskEntity addTask(String title, String description, String deadLine) throws ParseException {
 		TaskEntity task = new TaskEntity();
 		task.setId(taskId);
 		task.setTitle(title);
 		task.setDescription(description);
-		//task.setDeadline(new Date(deadLine)); // Todo : to validate Date format YYYY-MM-DD
+		task.setDeadline(deadLineFormatter.parse(deadLine)); // Todo : to validate Date format YYYY-MM-DD
 		task.setCompleted(false);
 		tasks.add(task);
 		taskId++;
