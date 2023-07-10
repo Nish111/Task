@@ -31,15 +31,15 @@ public class TaskService {
 		return tasks;
 	}
 	public TaskEntity getTaskById(int id) {
-		tasks.stream().findAny().filter(task -> task.getId()==id).orElse(null);
-		/*
+		//tasks.stream().findAny().filter(task -> task.getId()==id).orElse(null);
+		
 		for(TaskEntity task: tasks) {
 			if(task.getId()==id) return task;
-		}*/
+		}
 		return null;
 	}
 	public TaskEntity updateTask(int id, String description, String deadLine, boolean completed) throws ParseException {
-		TaskEntity task = new TaskEntity();
+		TaskEntity task = getTaskById(id);
 		if(task==null) return null;
 		if(description!=null) task.setDescription(description);
 		if(deadLine != null) task.setDeadline(deadLineFormatter.parse(deadLine));
