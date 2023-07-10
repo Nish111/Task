@@ -1,25 +1,24 @@
-package com.scaler.taskmanager.entities;
+package com.scaler.taskmanager.dto;
+
+import com.scaler.taskmanager.entities.NoteEntity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
 
-import lombok.Data;
-
-@Data
-public class TaskEntity {
-	private int id;
-	private String title;
-	private String description;
-	private Date deadline;
-	private boolean completed;
-	private List<NoteEntity> notes;
-	
-	public List<NoteEntity> getNotes() {
-		return notes;
-	}
-	public void setNotes(List<NoteEntity> notes) {
-		this.notes = notes;
-	}
+@NoArgsConstructor
+@Getter
+@Setter
+public class TaskResponseDTO {
+    private int id;
+    private String title;
+    private String description;
+    private Date deadline;
+    private boolean completed;
+    private List<NoteEntity> notes;
+    
 	public int getId() {
 		return id;
 	}
@@ -49,5 +48,11 @@ public class TaskEntity {
 	}
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
+	}
+	public List<NoteEntity> getNotes() {
+		return notes;
+	}
+	public void setNotes(List<NoteEntity> notes) {
+		this.notes = notes;
 	}
 }
